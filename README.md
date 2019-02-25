@@ -7,7 +7,7 @@ React study 기록용.
 ## 목차
 
 1. Block level scope (let, scope)
-2. Template literal
+2. Template literals
 3. Arrow function
 4. Default Parameter, rest parameter
 5. Rest / Spread property
