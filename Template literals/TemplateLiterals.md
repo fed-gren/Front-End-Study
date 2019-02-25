@@ -117,7 +117,7 @@ string text line 2`);
 var classes = 'header'
 classes += (isLargeScreen() ? 
             '' : item.isCollapsed ? 
-            ' icon-expander' : ' icon-collapser);
+            ' icon-expander' : ' icon-collapser');
 ```
 ```js
 //ES6, Not use nesting templates
