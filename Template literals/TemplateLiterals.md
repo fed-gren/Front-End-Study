@@ -7,6 +7,9 @@ ES2015 사양명세서에선 `template strings`라고 불렸습니다.
 
 프론트엔드에서는 HTML을 데이터와 결합해서 DOM을 다시 그려야 하는 일이 빈번하기 때문에, 템플릿을 좀 더 쉽게 편집하고 작성해야 할 필요가 있어서, 이러한 기능이 추가되었습니다.(자바스크립트 자체적으로 지원하기 전에도 라이브러리로 존재했습니다.)
 
+---
+<br>
+
 ## Syntax
 ```js
 `string text`
@@ -87,7 +90,6 @@ let css = 3;
 let js = 'es10';
 let string = myTag`HTML${html}, CSS${css}, JavaScript ${js}`;
 ```
-
 Tagged templates는 데이터 별로 상황(조건)이 다른 경우 유용하게 쓰일 수 있습니다.  
 ```js
 const ramenList = [
