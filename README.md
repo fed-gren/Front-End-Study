@@ -11,8 +11,8 @@ React study 기록용.
 ### 3. [Arrow function](https://github.com/fed-gren/React-Study/blob/master/Arrow%20function/ArrowFunction.md)
 ### 4. [Default Parameter, rest parameter](https://github.com/fed-gren/React-Study/blob/master/Default%20%26%20Rest%20parameter/Default%26RestParameter.md)
 ### 5. [Spread operator](https://github.com/fed-gren/React-Study/blob/master/Spread%20operator/SpreadOperator.md)
-### 6. Rest / Spread property
-### 7. Extended object literals (객체 리터럴 프로퍼티 기능 확장)
+### 6. [Rest / Spread property](https://github.com/fed-gren/React-Study/blob/master/Rest%2Cspread%20property/RestSpreadProperty.md)
+### 7. [Extended object literals (객체 리터럴 프로퍼티 기능 확장)](https://github.com/fed-gren/React-Study/blob/master/Enhanced%20object%20literals/EnhancedObjectLiterals.md)
 ### 8. Destuctruing
 ### 9. Class
 ### 10. Module
