@@ -15,4 +15,4 @@ React study 기록용.
 ### 7. [Extended object literals (객체 리터럴 프로퍼티 기능 확장)](https://github.com/fed-gren/React-Study/blob/master/ES6/Enhanced%20object%20literals/EnhancedObjectLiterals.md)
 ### 8. [Destuctruing](https://github.com/fed-gren/React-Study/blob/master/ES6/Destructuring/Destructuring.md)
 ### 9. [Class](https://github.com/fed-gren/React-Study/blob/master/ES6/Class/Class.md)
-### 10. Module
+### 10. [Module](https://github.com/fed-gren/React-Study/blob/master/ES6/Module/Module.md)
