@@ -131,6 +131,9 @@ class Foo {
 }
 ```
 
+---
+<br>
+
 ## 호이스팅
 클래스는 let, const와 같이 호이스팅 되지 않는 것처럼 동작합니다. 즉, class 선언문 이전에 클래스를 참조하면 Reference error가 발생합니다.  
 ```js
@@ -139,6 +142,9 @@ class Foo  {}
 ```
 자바스크립트는 ES6의 클래스를 포함하여 모든 선언(var, let, const, function, function*, class)을 호이스팅합니다. 하지만 클래스는 스코프의 선두에서 선언문에 도달할 때까지 일시적 사각지대(TDZ)에 빠집니다. 따라서 class 선언문 이전에 class를 참조하게되면 참조에러가 발생합니다.
 ES6의 클래스도 사실은 함수입니다. 다만, 함수선언식과 같은 방식으로 호이스팅되지 않고 let, const에 함수를 할당하는 함수표현식의 호이스팅 방식을 따릅니다.
+
+---
+<br>
 
 ## getter, setter
 ### getter
@@ -188,6 +194,9 @@ foo.firstElem = 0;
 console.log(foo.firstElem);     //0
 ```
 
+---
+<br>
+
 ## 정적 메소드
 클래스의 정적(static) 메소드를 정의할 때 static 키워드를 사용합니다. 정적 메소드는 클래스의 인스턴스가 아닌 클래스 이름으로 호출합니다. 따라서 클래스의 인스턴스를 생성하지 않아도 호출할 수 있습니다.
 ```js
@@ -219,6 +228,9 @@ console.log(foo.staticMethod());    //foo.staticMethod is not a function.
 클래스의 정적 메소드는 인스턴스로 호출할 수 없습니다. 이것은 정적 메소드는 this를 사용할 수 없다는 것을 의미합니다. 일반 메소드 내부에서 this는 클래스의 인스턴스를 가리키며, 메소드 내부에서 this를 사용한다는 것은 클래스의 인스턴스의 생성을 전제로 하는 것입니다.
 
 정적 메소드는 클래스 이름으로 호출하기 때문에 클래스의 인스턴스를 생성하지 않아도 사용할 수 있습니다. 단, 정적 메소드는 this를 사용할 수 없습니다. 달리 말하면 메소드 내부에서 this를 사용할 필요가 없는 메소드는 정적메소드로 만들 수 있습니다. `정적 메소드는 Math 객체의 메소드처럼 애플리케이션 전역에서 사용할 유틸리티 함수를 생성할 때 주로 사용합니다.`
+
+---
+<br>
 
 ## 클래스 상속
 
@@ -334,4 +346,68 @@ class Cylinder extends Circle {
 // 반지름이 2, 높이가 10인 원통
 const cylinder = new Cylinder(2, 10);
 ```
+
+① super 메소드는 자식 class의 constructor 내부에서 부모클래스의 constructor(super-constructor)를 호출합니다. 즉, 부모 클래스의 인스턴스를 생성합니다. `자식 클래스의 constructor에서 super()를 호출하지 않으면 this에 대한 참조 에러가 발생합니다.`
+```js
+class Parent {}
+class Child extends Parent {
+    constructor() {}    //reference error : this is not defined
+}
+
+const child = new Child();
+```
+이것은 super 메소드를 호출하기 이전에는 this를 참조할 수 없음을 의미합니다.
+
+② super 키워드는 부모 클래스(Base Class)에 대한 참조입니다. 부모 클래스의 프로퍼티 또는 메소드를 참조하기 위해 사용합니다.
+
 ### static 메소드와 prototype 메소드의 상속
+
+프로토타입 관점에서 바라보면 자식 클래스의 [[Prototype]] 프로퍼티가 가리키는 프로토타입 객체는 부모 클래스입니다.
+```js
+class Parent {}
+
+class Child extends Parent {}
+
+console.log(Child.__proto__ === Parent);    //true
+console.log(Child.prototype.__proto__ === Parent.prototype);    //true
+```
+
+자식 클래스 Child의 프로토타입 객체는 부모 클래스 Parent입니다.
+이것은 Prototype chain에 의해 부모 클래스의 정적 메소드도 상속됨을 의미합니다.
+
+```js
+class Parent {
+    static staticMethod() {
+        return 'staticMethod';
+    }
+}
+
+class Child extends Parent {}
+
+console.log(Parent.staticMethod()); //'staticMethod'
+console.log(Child.staticMethod());  //'staticMethod'
+```
+자식 클래스의 정적 메소드 내부에서도 super 키워드를 사용하여 부모 클래스의 정적 메소드를 호출할 수 있습니다. 자식 클래스는 프로토타입 체인에 의해 부모 클래스의 정적 메소드를 참조할 수 있기 때문입니다.
+
+하지만 자식 클래스의 일반 메소드(프로토타입 메소드) 내부에서는 super 키워드를 사용하여 부모 클래스의 정적 메소드를 호출할 수 없습니다. 자식 클래스의 인스턴스는 프로토타입 체인에 의해 부모 클래스의 정적 메소드를 참조할 수 없기 때문입니다.
+```js
+class Parent {
+    static staticMethod() {
+        return 'Hello';
+    }
+}
+
+class Child extends Parent {
+    static staticMethod() {
+        return `${super.staticMethod()} world`;
+    }
+
+    prototypeMethod() {
+        return `${super.staticMethod()} world`;
+    }
+}
+
+console.log(Parent.staticMethod());     //Hello
+console.log(Child.staticMethod());      //Hello world.
+console.log(new Child().prototypeMethod()); //Uncaught TypeError.
+```
