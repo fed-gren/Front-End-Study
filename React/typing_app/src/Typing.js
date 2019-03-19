@@ -14,12 +14,12 @@ export default class componentName extends Component {
 
   handleKeydown = (e) => {
     console.log(e.keyCode);
-    if(16 === e.keyCode) return;
+    if (16 === e.keyCode) return;
     let myTextIdx;
     let idxText;
     let string;
     if (8 === e.keyCode) {
-      if(myTextIdx < 0) return;
+      if (myTextIdx < 0) return;
       this.setState({
         index: this.state.index - 1,
         myText: this.state.myText.substr(0, this.state.index)
@@ -45,15 +45,15 @@ export default class componentName extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div className="typing">
         <div
           className="text"
-          onKeyPress={this.handleKeydown}
+          // onKeyPress={this.handleKeydown}
           tabIndex={1}
         >
           {this.props.text}
         </div>
-      </Fragment>
+      </div>
     )
   }
 }
