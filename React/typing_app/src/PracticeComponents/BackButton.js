@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class BackButton extends Component {
   render() {
     const style = {
-      width: '50px',
+      width: '100px',
       height: '50px',
       background: '#1FBD83',
-      borderRadius: '50%',
+      borderRadius: '5px',
       color: 'white',
       position: 'fixed',
       right: '30px',

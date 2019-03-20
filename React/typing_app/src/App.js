@@ -6,11 +6,12 @@ import StartBtn from "./StartComponents/StartButton";
 import Typing from "./PracticeComponents/Typing";
 import Keyboard from "./PracticeComponents/Keyboard";
 import BackBtn from "./PracticeComponents/BackButton";
+import Message from "./Message";
 
 class App extends Component {
   state = {
     text: '',
-    isStart: true
+    isStart: true,
   };
 
   handleChangeTextarea(input) {
@@ -27,7 +28,8 @@ class App extends Component {
       console.log(this.state.text);
     } else {
       console.log("There is any text.");
-      alert('연습할 텍스트를 입력해주세요!');
+      // alert('연습할 텍스트를 입력해주세요!');
+      this.message.showMessage('연습할 텍스트를 입력해주세요.');
       return;
     }
 
@@ -74,6 +76,11 @@ class App extends Component {
         {!this.state.isStart &&
           <BackBtn handleBackClick={this.handleBackClick.bind(this)}/>
         }
+
+        <Message 
+        message={this.state.message}
+        ref={ref => (this.message = ref)}
+        />
       </div>
     );
   }
