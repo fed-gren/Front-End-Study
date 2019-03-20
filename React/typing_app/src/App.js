@@ -1,31 +1,79 @@
 import React, { Component } from "react";
 import "./App.css";
-import Typing from "./Typing";
-import Keyboard from "./Keyboard";
+import Title from "./StartComponents/Title";
+import TextInput from "./StartComponents/TextInput";
+import StartBtn from "./StartComponents/StartButton";
+import Typing from "./PracticeComponents/Typing";
+import Keyboard from "./PracticeComponents/Keyboard";
+import BackBtn from "./PracticeComponents/BackButton";
 
 class App extends Component {
   state = {
-    text: "React is awesome"
+    text: '',
+    isStart: true
   };
 
-  render() {
-    const typingStyle = {
-      width: '600px',
-      height: '400px',
-      border: '1px solid black',
-      fontSize: '40px'
-    };
+  handleChangeTextarea(input) {
+    // let inputText = this.textInput.state.text;
+    this.setState({
+      text: input,
+      isStart: true
+    });
+  };
 
+  handleStartClick = () => {
+    if (this.state.text) {
+      console.log('App start!');
+      console.log(this.state.text);
+    } else {
+      console.log("There is any text.");
+      alert('연습할 텍스트를 입력해주세요!');
+      return;
+    }
+
+    this.setState({
+      isStart: false
+    })
+  };
+
+  handleBackClick = () => {
+    this.setState({
+      isStart: true,
+      text: ''
+    })
+    window.removeEventListener('keydown', this.keyboard.typingKeyboard);
+    console.log("back!");
+  }
+
+  render() {
     return (
-      <div 
+      <div
         className="App"
       >
-        <header>Typing Practice</header>
-        <Typing
-          style={typingStyle}
-          text = 'aa'
-        />
-        <Keyboard />
+        <Title />
+        {this.state.isStart &&
+          <TextInput
+            style={{ display: this.state.isStart ? 'block' : 'none' }}
+            ref={ref => (this.textInput = ref)}
+            handleChangeTextarea={this.handleChangeTextarea.bind(this)}
+          />
+        }
+        {this.state.isStart &&
+          <StartBtn handleStartClick={this.handleStartClick.bind(this)} />
+        }
+
+        {!this.state.isStart &&
+          <Typing
+            text={this.state.text}
+          />
+        }
+        {!this.state.isStart &&
+          <Keyboard ref={ref => (this.keyboard = ref)}/>
+        }
+
+        {!this.state.isStart &&
+          <BackBtn handleBackClick={this.handleBackClick.bind(this)}/>
+        }
       </div>
     );
   }

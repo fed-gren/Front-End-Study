@@ -46,13 +46,12 @@ export default class componentName extends Component {
   render() {
     return (
       <div className="typing">
-        <div
+        <pre
           className="text"
           // onKeyPress={this.handleKeydown}
-          tabIndex={1}
         >
           {this.props.text}
-        </div>
+        </pre>
       </div>
     )
   }

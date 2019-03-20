@@ -1,3 +1,7 @@
+/**
+ * ? 키 입력 이벤트 발생 시, 어떤 키를 눌렀는지 나타내기 위한 키보드 컴포넌트
+ */
+
 import React, { Component } from 'react';
 import './Keyboard.css';
 
@@ -5,16 +9,17 @@ export default class Keyboard extends Component {
   state = {
     beforeKey: ''
   }
-  typingKeyboard = ({keyCode, location}) => {
+  typingKeyboard = ({ keyCode, location }) => {
     console.log(keyCode);
     let key = document.querySelector(`li[data-key="${keyCode}"]`);
-    if(16 === keyCode) {
+    if (null === key) return;
+    if (16 === keyCode) {
       key = document.querySelector(`li[data-location="${location}"]`);
     }
-    console.log(key);
+    // console.log(key);
     key.classList.add('pressed');
     let beforeKey = this.state.beforeKey;
-    if(beforeKey !== '' && beforeKey !== key) beforeKey.classList.remove('pressed');
+    if (beforeKey !== '' && beforeKey !== key) beforeKey.classList.remove('pressed');
     this.setState({
       beforeKey: key
     })
