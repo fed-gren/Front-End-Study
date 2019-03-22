@@ -37,7 +37,7 @@ class App extends Component {
         <button onClick={this.handleClick}>랜덤 색상</button>
         <LifeCycleSample color={this.state.color}/>
         <h2>Test</h2>
-        <Test></Test>
+        <Test />
       </>
     );
   }
