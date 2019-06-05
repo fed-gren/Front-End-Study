@@ -150,3 +150,91 @@ console.log(blueCard.constructor);
 - [(JavaScript) 객체 지향 프로그래밍(생성자와 프로토타입)](https://www.zerocho.com/category/JavaScript/post/573c2acf91575c17008ad2fc)
 - [[자바스크립트] 생성자 함수의 확인, Constructor 속성](https://webisfree.com/2015-06-13/[%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8]-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%9D%98-%ED%99%95%EC%9D%B8-constructor-%EC%86%8D%EC%84%B1)
 - [Object-oriented Java​Script for beginners](https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object-oriented_JS#%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80_%EA%B0%9D%EC%B2%B4_%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4)
+
+---
+
+<br/>
+
+## bind가 필요한 상황을 코드로 제시하라.
+
+### TL;DR
+
+```js
+const person1_btn = document.getElementById("person1");
+const person2_btn = document.getElementById("person2");
+
+function Person(name) {
+  this.name = name;
+}
+
+function greeting(text) {
+  alert(`${text} ${this.name}`);
+}
+
+const james = new Person("James");
+const rick = new Person("Rick");
+
+person1_btn.addEventListener("click", greeting.bind(james, "Hi! I'm"));
+person2_btn.addEventListener("click", greeting.bind(rick, "Hello! My name is"));
+```
+
+<br/>
+
+### Function.prototype.bind()
+
+bind() 메서드의 원형은 아래와 같다.
+
+```js
+func.bind(thisArg[, arg1[, arg2[, ...]]])
+```
+
+bind() 메서드는 함수의 기본 메서드로 bind를 사용한 함수의 this 값을 설정하는 데 사용한다. 아래 간단한 예시를 보자.
+
+```js
+var obj1 = {
+  name: "gren",
+  printName: function() {
+    console.log(this.name);
+  }
+};
+
+var obj2 = {
+  name: "rick"
+};
+
+var print2 = obj1.printName.bind(obj2);
+print2(); // "rick"
+```
+
+obj1에서 name과 printName 프로퍼티를 생성했고, printName은 해당 객체가 가지고 있는 name에 접근하여 해당 값을 출력하는 메서드이다.
+
+obj2는 name 프로퍼티만 가지고 있는 객체이다.
+
+print2에는 obj1.printName에 bind를 사용했고 인자로는 obj2를 전달했다. 이 의미는 obj1의 printName이라는 함수를 복사한 뒤, 이 함수가 실행될 때 this 값은 obj2에 바인딩됨을 의미한다.
+
+그래서 print2를 실행했을 때, 'rick'을 출력하는 것이다.
+
+bind 함수에서 thisArg외에 원본 함수에 차례대로 제공할 매개변수를 매개변수로 줄 수 있다.
+
+```js
+var obj1 = {
+  name: "gren",
+  printName: function(text) {
+    console.log(`${text} ${this.name}`);
+  }
+};
+
+var obj2 = {
+  name: "rick"
+};
+
+var print2 = obj1.printName.bind(obj2, "안녕~~~~~ 내 이름은");
+print2(); // "안녕~~~~~ 내 이름은 rick"
+```
+
+<br/>
+
+### 참고
+
+- [Function.prototype.bind() - MDN web docs](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+- [When to use .bind() in JS- Stackoverflow](https://stackoverflow.com/questions/26477245/when-to-use-bind-in-js)
