@@ -72,3 +72,81 @@ API서버에 데이터를 요청했을 때 상황에 따라 시간이 오래걸�
 ### 참고
 
 - [Understanding Asynchronous JavaScript](https://blog.bitsrc.io/understanding-asynchronous-javascript-the-event-loop-74cd408419ff)
+
+---
+
+<br/>
+
+## 4. 생성자란 무엇인가?
+
+### TL;DR
+
+- 생성자(constructor)는 객체를 생성하고 초기화한다.
+- 객체에 존재하는 constructor 속성을 확인하면 어떤 생성자를 통해 생겨난 인스턴스인지 알 수 있다.
+
+<br/>
+
+### 객체를 만들기 위한 생성자
+
+자바스크립트에서 new Date()를 사용하면 Date 객체가 만들어진다. 이처럼 호출할 때 new를 붙여 호출해서 객체를 생성하는 함수를 `생성자(constructor) 함수`라고 한다.
+
+생성자인 constructor 자체에 대해 알아보자.
+
+자바스크립트의 모든 함수는 객체를 만들어낼 수 있다. new 키워드를 앞에 붙여 브라우저에게 새로운 객체 인스턴스를 만들겠다는 것을 알려주면 모든 함수는 객체를 return 한다.
+
+```js
+function abc() {
+  this.name = "abc";
+  return true;
+}
+
+let trueVal = abc(); //true
+let obj = new abc(); //{name: "abc"}
+```
+
+<br/>
+
+### constructor in class
+
+ES2015에 등장한 class 키워드를 사용하여 자바스크립트에서도 좀 더 명시적으로 클래스를 사용하게 되었다. 그리고 이 class 내부에서는 constructor 메서드를 사용할 수 있다.
+
+<br/>
+
+### constructor property
+
+모든 함수에는 constructor(생성자) 속성이 존재한다. constructor 속성이 하는 일은 어떤 생성자 객체를 통해 생겨난 인스턴스인지를 알려주는 속성이다. 아래 예시를 보자.
+
+```js
+function Card(color, num) {
+  this.color = color;
+  this.num = num;
+  this.print = function() {
+    console.log(`${num} ${color} card.`);
+  };
+}
+
+const blueCard = new Card("blue", 1);
+blueCard.print(); // 1 blue card.
+console.log(blueCard.constructor);
+```
+
+맨 아래 blueCard.constructor를 출력한 결과는 아래와 같다.
+
+```js
+ƒ Card(color, num) {
+  this.color = color;
+  this.num = num;
+  this.print = function() {
+    console.log(`${num} ${color} card.`);
+  };
+}
+```
+
+<br/>
+
+### 참고
+
+- [constructor - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)
+- [(JavaScript) 객체 지향 프로그래밍(생성자와 프로토타입)](https://www.zerocho.com/category/JavaScript/post/573c2acf91575c17008ad2fc)
+- [[자바스크립트] 생성자 함수의 확인, Constructor 속성](https://webisfree.com/2015-06-13/[%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8]-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%9D%98-%ED%99%95%EC%9D%B8-constructor-%EC%86%8D%EC%84%B1)
+- [Object-oriented Java​Script for beginners](https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object-oriented_JS#%EC%83%9D%EC%84%B1%EC%9E%90%EC%99%80_%EA%B0%9D%EC%B2%B4_%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4)
